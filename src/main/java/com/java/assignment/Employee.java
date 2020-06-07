@@ -10,9 +10,8 @@ public class Employee extends Person{
     private int salary;
     private Enum<Department> department;
     private Employee manager;
-    private final List<Sale> sales = new ArrayList<Sale>();
-    private final List<Project> projects = new ArrayList<Project>();
-
+    public List<Sale> sales = new ArrayList<Sale>();
+    public List<Project> projects = new ArrayList<Project>();
 
     public Employee(int id){
         super(id);
@@ -35,5 +34,13 @@ public class Employee extends Person{
 
     public Enum<Department> getDepartment() {
         return department;
+    }
+
+    public void setSales(List<Sale>sales){
+        this.sales = sales;
+    }
+
+    public void setProjects(List<Project> projects){
+        this.projects = projects;
     }
 }

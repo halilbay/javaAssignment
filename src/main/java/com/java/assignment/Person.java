@@ -7,9 +7,9 @@ public class Person {
     * id|firstName|lastName
     * */
 
-    private final int id;
-    private String firstName;
-    private String lastName;
+    int id;
+    String firstName;
+    String lastName;
 
     public Person(int id){
         this.id = id;
@@ -18,6 +18,9 @@ public class Person {
         this(id);
         this.firstName = firstName;
         this.lastName = lastName;
+    }
+
+    public Person() {
     }
 
     public int getId() {

@@ -7,11 +7,14 @@ public class Project {
     */
 
     private final String name;
-    private final String details;
+    private String details;
     private ProjectState state;
 
-    public Project (String name, String details, ProjectState state){
+    public Project (String name){
         this.name = name;
+    }
+    public Project (String name, String details, ProjectState state){
+        this(name);
         this.details = details;
         this.state = state;
     }

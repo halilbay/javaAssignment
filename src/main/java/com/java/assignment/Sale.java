@@ -5,10 +5,13 @@ public class Sale {
     *   productName|price
     */
     private final String productName;
-    private final int price;
+    private int price;
 
-    public Sale (String productName, int price){
+    public Sale(String productName){
         this.productName = productName;
+    }
+    public Sale (String productName, int price){
+        this(productName);
         this.price = price;
     }
 

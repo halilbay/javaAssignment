@@ -1,6 +1,8 @@
 package com.java.assignment;
 
 public enum Department {
-    SALES,
-    PROJECTS
+    sales,
+    production,
+    accounting,
+    marketing
 }

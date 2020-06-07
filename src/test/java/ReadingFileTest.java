@@ -12,13 +12,22 @@ public class ReadingFileTest {
     String fileName = "/home/bay/Documents/workSpace/javaAssignment/src/main/resources/employees.txt";
     ReadingFile fileEmployee = new ReadingFile(fileName);
 
+    public ReadingFileTest() throws IOException {
+    }
+
     @org.junit.jupiter.api.Test
     void readlines() throws IOException {
         fileEmployee.readLines();
+
+        for(String[] lines: fileEmployee.getAllLines()){
+            for(String line: lines){
+                System.out.println(line);
+            }
+        }
     }
     @org.junit.jupiter.api.Test
     void getLineCount() throws IOException {
         readlines();
-        assertEquals(13, fileEmployee.getLineCount());
+        assertEquals(12, fileEmployee.getLineCount());
     }
 }
