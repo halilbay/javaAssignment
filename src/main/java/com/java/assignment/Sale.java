@@ -4,7 +4,7 @@ public class Sale {
     /*
     *   productName|price
     */
-    private final String productName;
+    private String productName;
     private int price;
 
     public Sale(String productName){
@@ -15,12 +15,20 @@ public class Sale {
         this.price = price;
     }
 
-    public String getProductName(String productName){
+    public String getProductName(){
         return productName;
     }
 
-    public int getPrice(int price){
+    public int getPrice(){
         return price;
+    }
+
+    public void setPrice(int price) {
+        this.price = price;
+    }
+
+    public void setProductName(String productName){
+        this.productName = productName;
     }
 
     @Override

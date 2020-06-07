@@ -43,4 +43,12 @@ public class Employee extends Person{
     public void setProjects(List<Project> projects){
         this.projects = projects;
     }
+
+    public List<Project> getProjects(){
+        return this.projects;
+    }
+
+    public List<Sale> getSales(){
+        return this.sales;
+    }
 }

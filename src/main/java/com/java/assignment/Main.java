@@ -13,7 +13,7 @@ public class Main {
 		String absPath = "/home/bay/Documents/workSpace/javaAssignment/src/main/resources/";
 
 		// Sales part
-		Set<Sale> saleList = new HashSet<>();
+		Map<String, Sale> saleList = new HashMap<>();
 		String salesFileName = absPath + "sales.txt";
 		ReadingFile fileSale = new ReadingFile(salesFileName);
 		List<String[]> allSales = fileSale.getAllLines();
@@ -22,13 +22,13 @@ public class Main {
 			String productName = sale[0];
 			int price = parseInt(sale[1]);
 
-			saleList.add(new Sale(productName, price));
+			saleList.put(productName, new Sale(productName, price));
 		}
 		System.out.println(saleList);
 
 		// Projects part
 		// read project and save new object to project list
-		Set<Project> projectList = new HashSet<>();
+		Map<String, Project> projectList = new HashMap<>();
 		String projectFileName = absPath + "projects.txt";
 		ReadingFile fileProject = new ReadingFile(projectFileName);
 		List<String[]> allProject = fileProject.getAllLines();
@@ -38,7 +38,7 @@ public class Main {
 			String details = project[1];
 			ProjectState state = ProjectState.valueOf(project[2]);
 
-			projectList.add(new Project(name, details, state));
+			projectList.put(name, new Project(name, details, state));
 		}
 		System.out.println(projectList);
 
@@ -64,7 +64,7 @@ public class Main {
 			if (!employee[6].equals("-")) {
 				sales = new ArrayList<>();
 				for (String s : employee[6].split(",")) {
-					sales.add(new Sale(s));
+					sales.add(saleList.get(s));
 				}
 			}
 
@@ -72,7 +72,7 @@ public class Main {
 			if (!employee[7].equals("-")) {
 				projects = new ArrayList<>();
 				for (String s : employee[7].split(",")) {
-					projects.add(new Project(s));
+					projects.add(projectList.get(s));
 				}
 			}
 			Employee e1 = new Employee(id, firstName, lastName, salary, department, manager);

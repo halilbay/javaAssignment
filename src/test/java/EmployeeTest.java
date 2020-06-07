@@ -82,6 +82,8 @@ public class EmployeeTest {
         for (Map.Entry<Integer, Employee> entry: employeeList.entrySet()){
             System.out.println(entry.getValue().toString());
             System.out.println(entry.getValue().isManager());
+            System.out.println(entry.getValue().getProjects());
+            System.out.println(entry.getValue().getSales());
         }
         System.out.println(employeeList.values());
     }
