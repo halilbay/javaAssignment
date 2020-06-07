@@ -1,0 +1,13 @@
+id|firstname|lastname|salary|department|manager|sales|projects
+100|jack|white|12000|production|-|-|-
+101|george|blue|13000|accounting|-|-|-
+102|walter|brown|12500|sales|-|-|-
+103|jane|aqua|14000|marketing|-|-|-
+104|jennifer|black|8000|sales|102|s1,s2,s3|-
+105|sandy|green|7000|production|100|-|p1,p2
+106|mike|red|7500|marketing|103|s4,s5|-
+107|ryan|yellow|6200|accounting|101|-|p6
+108|michael|gray|6500|sales|102|s6|-
+109|david|yellow|7100|production|100|-|p3,p4
+110|john|blur|8100|marketing|103|s7|-
+111|carlos|skelton|6700|accounting|101|-|p5
