@@ -1,5 +1,9 @@
 package com.java.assignment;
 
+import java.util.Comparator;
+
+import static java.util.Comparator.comparing;
+
 public class Project {
     /*
     * projectName|details|state
@@ -10,6 +14,7 @@ public class Project {
     private String details;
     private ProjectState state;
 
+    public static final Comparator<Project> BY_STATE = comparing(Project::getState);
     public Project (String name){
         this.name = name;
     }
@@ -27,6 +32,9 @@ public class Project {
         return details;
     }
 
+    public ProjectState getState(){
+        return state;
+    }
     public void setState(ProjectState state) {
         this.state = state;
     }

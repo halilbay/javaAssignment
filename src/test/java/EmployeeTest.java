@@ -3,10 +3,7 @@ import com.java.assignment.*;
 import com.java.assignment.ReadingFile;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import static java.lang.Integer.parseInt;
 import static org.junit.jupiter.api.Assertions.*;
@@ -57,17 +54,17 @@ public class EmployeeTest {
                 manager = new Employee(parseInt(employee[5]));
             }
 
-            List<Sale> sales = null;
+            Set<Sale> sales = null;
             if (!employee[6].equals("-")) {
-                sales = new ArrayList<>();
+                sales = new HashSet<>();
                 for (String s : employee[6].split(",")) {
                     sales.add(new Sale(s));
                 }
             }
 
-            List<Project> projects = null;
+            Set<Project> projects = null;
             if (!employee[7].equals("-")) {
-                projects = new ArrayList<>();
+                projects = new HashSet<>();
                 for (String s : employee[7].split(",")) {
                     projects.add(new Project(s));
                 }

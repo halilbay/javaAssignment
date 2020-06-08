@@ -1,5 +1,9 @@
 package com.java.assignment;
 
+import java.util.Comparator;
+
+import static java.util.Comparator.comparing;
+
 public class Sale {
     /*
     *   productName|price
@@ -7,6 +11,7 @@ public class Sale {
     private String productName;
     private int price;
 
+    public static final Comparator<Sale> BY_PRICE = comparing(Sale::getPrice);
     public Sale(String productName){
         this.productName = productName;
     }

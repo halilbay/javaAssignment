@@ -4,19 +4,9 @@ import static org.junit.jupiter.api.Assertions.*;
 import com.java.assignment.*;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 class MainTest {
-
-    @org.junit.jupiter.api.Test
-    void getValue() {
-
-        assertEquals(5, Main.getValue());
-    }
-
     @org.junit.jupiter.api.Test
     void getAllLists() throws IOException {
 
@@ -68,20 +58,20 @@ class MainTest {
             Department department = Department.valueOf(employee[4]);
             Employee manager = null;
             if (!employee[5].equals("-")) {
-                manager = new Employee(parseInt(employee[5]));
+                manager = employeeList.get(parseInt(employee[5]));
             }
 
-            List<Sale> sales = null;
+            Set<Sale> sales = null;
             if (!employee[6].equals("-")) {
-                sales = new ArrayList<>();
+                sales = new HashSet<>();
                 for (String s : employee[6].split(",")) {
                     sales.add(saleList.get(s));
                 }
             }
 
-            List<Project> projects = null;
+            Set<Project> projects = null;
             if (!employee[7].equals("-")) {
-                projects = new ArrayList<>();
+                projects = new HashSet<>();
                 for (String s : employee[7].split(",")) {
                     projects.add(projectList.get(s));
                 }
@@ -97,7 +87,7 @@ class MainTest {
         for (Map.Entry<Integer, Employee> entry: employeeList.entrySet()){
             System.out.println(entry.getValue().toString());
             System.out.println(entry.getValue().isManager());
-            System.out.println(entry.getValue().getProjects());
+            System.out.println(entry.getValue().getManager());
             System.out.println(entry.getValue().getSales());
         }
     }

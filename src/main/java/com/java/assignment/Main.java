@@ -2,10 +2,12 @@ package com.java.assignment;
 
 import java.io.IOException;
 import java.util.*;
-
+import com.java.assignment.Employee.*;
 import static java.lang.Integer.parseInt;
 
 public class Main {
+	static List<Employee> employeeArrayList = new ArrayList<>();
+	static Map<Integer, Employee> employeeList = new HashMap<>();
 
     public static void main(String[] args) throws IOException {
 
@@ -24,7 +26,6 @@ public class Main {
 
 			saleList.put(productName, new Sale(productName, price));
 		}
-		System.out.println(saleList);
 
 		// Projects part
 		// read project and save new object to project list
@@ -40,11 +41,10 @@ public class Main {
 
 			projectList.put(name, new Project(name, details, state));
 		}
-		System.out.println(projectList);
 
 		// Employee part
 		// read employee and save new object to employee list
-		Map<Integer, Employee> employeeList = new HashMap<>();
+
 		String employeeFileName = absPath + "employees.txt";
 		ReadingFile fileEmployee = new ReadingFile(employeeFileName);
 		List<String[]> allEmployees = fileEmployee.getAllLines();
@@ -57,20 +57,20 @@ public class Main {
 			Department department = Department.valueOf(employee[4]);
 			Employee manager = null;
 			if (!employee[5].equals("-")) {
-				manager = new Employee(parseInt(employee[5]));
+				manager = employeeList.get(parseInt(employee[5]));
 			}
 
-			List<Sale> sales = null;
+			Set<Sale> sales = null;
 			if (!employee[6].equals("-")) {
-				sales = new ArrayList<>();
+				sales = new HashSet<>();
 				for (String s : employee[6].split(",")) {
 					sales.add(saleList.get(s));
 				}
 			}
 
-			List<Project> projects = null;
+			Set<Project> projects = null;
 			if (!employee[7].equals("-")) {
-				projects = new ArrayList<>();
+				projects = new HashSet<>();
 				for (String s : employee[7].split(",")) {
 					projects.add(projectList.get(s));
 				}
@@ -79,35 +79,88 @@ public class Main {
 			e1.sales = sales;
 			e1.projects = projects;
 			employeeList.put(id, e1);
+			employeeArrayList.add(e1);
 		}
+		Employee.getManagerEmployeeRel(employeeList);
 
-		System.out.println(employeeList);
-
-		// TODO fill that functions
-		System.out.println(showMostSales());
-		System.out.println(sortSalaries());
-		System.out.println(salaryExpensive());
-		System.out.println(openProjects());
+		System.out.println(showMostSales()); // done
+		System.out.println(sortSalaries()); // done
+		System.out.println(salaryExpensive()); // done
+		System.out.println(openProjects()); // done
     }
 
-	private static String[] openProjects() {
-		return null;
+	private static Employee openProjects() {
+    	// Calculate which manager has the most open projects?
+		Map<Employee, Set<Employee>> managerEmployeeRel = Employee.getManagerEmployeeRel(employeeList);
+		Map<Employee, Integer> mostOpenProject = new HashMap<>();
+		for(Map.Entry<Employee, Set<Employee>> manEmpRel: managerEmployeeRel.entrySet()){
+			int totalOpen = 0;
+			for (Employee e: manEmpRel.getValue()){
+				if(e.projectFilterByState(ProjectState.open) != null){
+					totalOpen += e.projectFilterByState(ProjectState.open).size();
+				}
+			}
+			mostOpenProject.put(manEmpRel.getKey(), totalOpen);
+		}
+
+		// getting first item of map and set as max value and the most sales manager as default
+		Map.Entry<Employee, Integer> firstEntry = mostOpenProject.entrySet().iterator().next();
+		int max = firstEntry.getValue();
+		Employee theMost = firstEntry.getKey();
+		for(Map.Entry<Employee, Integer> e: mostOpenProject.entrySet()) {
+			if(e.getValue() > max){
+				max = e.getValue();
+				theMost = e.getKey();
+			}
+		}
+		System.out.print("The most open project manager is: ");
+		return theMost;
 	}
 
 	private static int salaryExpensive() {
-		return 0;
+    	// Calculate salary expensive of the company?
+		int totalSalary = 0;
+		for (Employee e: employeeArrayList){
+			totalSalary += e.getSalary();
+		}
+		System.out.print("Total Salary is: ");
+		return totalSalary;
 	}
 
-	private static int[] sortSalaries() {
-		return null;
+	private static List<Employee> sortSalaries() {
+    	// Sort salaries for all employees in the company?
+		employeeArrayList.sort(Employee.BY_SALARY.reversed());
+		return employeeArrayList;
 	}
 
-	private static Employee[] showMostSales() {
-		return null;
+	private static Employee showMostSales() {
+    	// Calculate which manager has the most sales price?
+		Map<Employee, Set<Employee>> managerEmployeeRel = Employee.getManagerEmployeeRel(employeeList);
+
+		// sum all prices of sales from employees under managers
+		Map<Employee, Integer> mostSale = new HashMap<>();
+		for(Map.Entry<Employee, Set<Employee>> manEmpRel: managerEmployeeRel.entrySet()){
+			int sum = 0;
+			for (Employee e: manEmpRel.getValue()){
+				sum += e.getSalesPrice();
+			}
+			mostSale.put(manEmpRel.getKey(), sum);
+		}
+
+		// sorted most sales
+
+		// getting first item of map and set as max value and the most sales manager as default
+		Map.Entry<Employee, Integer> firstEntry = mostSale.entrySet().iterator().next();
+		int max = firstEntry.getValue();
+		Employee theMost = firstEntry.getKey();
+		for(Map.Entry<Employee, Integer> e: mostSale.entrySet()) {
+			if(e.getValue() > max){
+				max = e.getValue();
+				theMost = e.getKey();
+			}
+
+		}
+		System.out.print("The most sales manager is: ");
+		return theMost;
     }
-
-	public static int getValue(){
-    	return 5;
-	}
-
 }
